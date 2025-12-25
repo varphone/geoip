@@ -107,6 +107,31 @@ Supported `output` formats:
 
 - **text**: Convert data to plaintext CIDR format
 - **v2rayGeoIPDat**: Convert data to V2Ray GeoIP dat format
+- **maxmindMMDB**: Convert data to MaxMind mmdb database format
+
+### Quick command-line conversion (without config file)
+
+You can use command-line arguments for quick conversion without creating a JSON config file:
+
+```bash
+# Convert text file to MMDB format
+./geoip -input text -inputFile input.txt -inputName CN -output maxmindMMDB -outputFile ./output
+
+# Convert MMDB to text format with specific countries
+./geoip -input maxmindMMDB -inputFile GeoLite2-Country.mmdb -output text -outputFile ./output -wantList CN,US,JP
+
+# Convert with IPv4 only filter
+./geoip -input text -inputFile input.txt -inputName TEST -output v2rayGeoIPDat -outputFile ./output -onlyIPType ipv4
+```
+
+**Available command-line flags:**
+- `-input`: Input format (e.g., text, maxmindMMDB, v2rayGeoIPDat)
+- `-inputFile`: Path to input file
+- `-inputName`: Name for the input entry (required for text format)
+- `-output`: Output format (e.g., text, maxmindMMDB, v2rayGeoIPDat)
+- `-outputFile`: Output file path or directory
+- `-wantList`: Comma-separated list of wanted countries (e.g., CN,US,JP)
+- `-onlyIPType`: Filter IP type: ipv4 or ipv6
 
 ### Steps
 
@@ -134,8 +159,22 @@ You can run `go install -v github.com/v2fly/geoip@latest` to install the CLI too
 $ ./geoip -h
 Usage of ./geoip:
   -c string
-    	Path to the config file (default "config.json")
-  -l	List all available input and output formats
+        Path to the config file (default "config.json")
+  -input string
+        Input format (e.g., maxmindMMDB, text, v2rayGeoIPDat)
+  -inputFile string
+        Input file path
+  -inputName string
+        Name for the input entry (used for text format)
+  -l    List all available input and output formats
+  -onlyIPType string
+        Only process specific IP type: ipv4 or ipv6
+  -output string
+        Output format (e.g., maxmindMMDB, text, v2rayGeoIPDat)
+  -outputFile string
+        Output file path (or directory)
+  -wantList string
+        Comma separated list of wanted countries (e.g., CN,US,JP)
 ```
 
 ### Generate GeoIP files
@@ -165,6 +204,7 @@ All available input formats:
   - v2rayGeoIPDat (Convert V2Ray GeoIP dat to other formats)
 
 All available output formats:
+  - maxmindMMDB (Convert data to MaxMind mmdb database format)
   - text (Convert data to plaintext CIDR format)
   - v2rayGeoIPDat (Convert data to V2Ray GeoIP dat format)
 ```
