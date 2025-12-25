@@ -76,7 +76,7 @@ func runQuickConversion() error {
 
 	// Build input config
 	inputArgs := make(map[string]interface{})
-	
+
 	// Handle different input formats
 	switch strings.ToLower(*input) {
 	case "text":
@@ -113,9 +113,9 @@ func runQuickConversion() error {
 	outputArgs := make(map[string]interface{})
 	if *outputFile != "" {
 		// Determine if outputFile is a file or directory
-		if strings.HasSuffix(*outputFile, ".dat") || 
-		   strings.HasSuffix(*outputFile, ".mmdb") || 
-		   strings.HasSuffix(*outputFile, ".txt") {
+		if strings.HasSuffix(*outputFile, ".dat") ||
+			strings.HasSuffix(*outputFile, ".mmdb") ||
+			strings.HasSuffix(*outputFile, ".txt") {
 			outputArgs["outputName"] = *outputFile
 		} else {
 			outputArgs["outputDir"] = *outputFile
